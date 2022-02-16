@@ -12,8 +12,11 @@
 		6856A1CA27B7F7030033E6B0 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 6856A1C927B7F7030033E6B0 /* FirebaseFirestore */; };
 		6856A1CC27B7F7030033E6B0 /* FirebaseMLModelDownloader in Frameworks */ = {isa = PBXBuildFile; productRef = 6856A1CB27B7F7030033E6B0 /* FirebaseMLModelDownloader */; };
 		6856A1CE27B7F7030033E6B0 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 6856A1CD27B7F7030033E6B0 /* FirebaseStorage */; };
-		6856A1D227B801C40033E6B0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6856A1D127B801C40033E6B0 /* GoogleService-Info.plist */; };
-		6856A1D627B8ED670033E6B0 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6856A1D527B8ED670033E6B0 /* VideoViewController.swift */; };
+		6856A1D627B8ED670033E6B0 /* MaskVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6856A1D527B8ED670033E6B0 /* MaskVideoViewController.swift */; };
+		6856A1E027BB5E900033E6B0 /* mask_model.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 6856A1DF27BB5E900033E6B0 /* mask_model.mlmodel */; };
+		6856A1E227BC2AD10033E6B0 /* EmotionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6856A1E127BC2AD10033E6B0 /* EmotionViewController.swift */; };
+		6856A1E427BC8BD70033E6B0 /* emotion_model.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 6856A1E327BC8BD70033E6B0 /* emotion_model.mlmodel */; };
+		6856A1E627BCC42C0033E6B0 /* emotion_64_model.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 6856A1E527BCC42C0033E6B0 /* emotion_64_model.mlmodel */; };
 		68A95D54277C366200F3E4F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A95D53277C366200F3E4F1 /* AppDelegate.swift */; };
 		68A95D56277C366200F3E4F1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A95D55277C366200F3E4F1 /* SceneDelegate.swift */; };
 		68A95D5B277C366200F3E4F1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68A95D59277C366200F3E4F1 /* Main.storyboard */; };
@@ -24,8 +27,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6856A1D127B801C40033E6B0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../.Trash/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		6856A1D527B8ED670033E6B0 /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
+		6856A1D527B8ED670033E6B0 /* MaskVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskVideoViewController.swift; sourceTree = "<group>"; };
+		6856A1DF27BB5E900033E6B0 /* mask_model.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = mask_model.mlmodel; path = Python_file/google_colab/mask_model.mlmodel; sourceTree = SOURCE_ROOT; };
+		6856A1E127BC2AD10033E6B0 /* EmotionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionViewController.swift; sourceTree = "<group>"; };
+		6856A1E327BC8BD70033E6B0 /* emotion_model.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = emotion_model.mlmodel; path = Python_file/google_colab/emotion_model.mlmodel; sourceTree = SOURCE_ROOT; };
+		6856A1E527BCC42C0033E6B0 /* emotion_64_model.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = emotion_64_model.mlmodel; path = ../../../Downloads/emotion_64_model.mlmodel; sourceTree = "<group>"; };
 		68A95D50277C366200F3E4F1 /* movieDetection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = movieDetection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68A95D53277C366200F3E4F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		68A95D55277C366200F3E4F1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -75,8 +81,11 @@
 				68A95D53277C366200F3E4F1 /* AppDelegate.swift */,
 				68C67B5627B5331B0004FCA2 /* Extensions.swift */,
 				68A95D55277C366200F3E4F1 /* SceneDelegate.swift */,
-				6856A1D527B8ED670033E6B0 /* VideoViewController.swift */,
-				6856A1D127B801C40033E6B0 /* GoogleService-Info.plist */,
+				6856A1D527B8ED670033E6B0 /* MaskVideoViewController.swift */,
+				6856A1E127BC2AD10033E6B0 /* EmotionViewController.swift */,
+				6856A1DF27BB5E900033E6B0 /* mask_model.mlmodel */,
+				6856A1E327BC8BD70033E6B0 /* emotion_model.mlmodel */,
+				6856A1E527BCC42C0033E6B0 /* emotion_64_model.mlmodel */,
 				68A95D59277C366200F3E4F1 /* Main.storyboard */,
 				68A95D5C277C366300F3E4F1 /* Assets.xcassets */,
 				68A95D5E277C366300F3E4F1 /* LaunchScreen.storyboard */,
@@ -156,7 +165,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				68A95D60277C366300F3E4F1 /* LaunchScreen.storyboard in Resources */,
-				6856A1D227B801C40033E6B0 /* GoogleService-Info.plist in Resources */,
 				68A95D5D277C366300F3E4F1 /* Assets.xcassets in Resources */,
 				68A95D5B277C366200F3E4F1 /* Main.storyboard in Resources */,
 			);
@@ -169,8 +177,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6856A1D627B8ED670033E6B0 /* VideoViewController.swift in Sources */,
+				6856A1E227BC2AD10033E6B0 /* EmotionViewController.swift in Sources */,
+				6856A1D627B8ED670033E6B0 /* MaskVideoViewController.swift in Sources */,
 				68A95D54277C366200F3E4F1 /* AppDelegate.swift in Sources */,
+				6856A1E427BC8BD70033E6B0 /* emotion_model.mlmodel in Sources */,
+				6856A1E627BCC42C0033E6B0 /* emotion_64_model.mlmodel in Sources */,
+				6856A1E027BB5E900033E6B0 /* mask_model.mlmodel in Sources */,
 				68A95D56277C366200F3E4F1 /* SceneDelegate.swift in Sources */,
 				68C67B5727B5331B0004FCA2 /* Extensions.swift in Sources */,
 			);

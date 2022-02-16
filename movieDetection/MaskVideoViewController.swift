@@ -9,8 +9,9 @@ import UIKit
 import AVFoundation
 import Vision
 import SnapKit
+import CoreML
 
-class VideoViewController: UIViewController {
+class MaskVideoViewController: UIViewController {
     
     private let captureSession = AVCaptureSession()
     private lazy var previewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
@@ -18,6 +19,8 @@ class VideoViewController: UIViewController {
     private var faceLayers: [CAShapeLayer] = []
     
     var uiImage = UIImage()
+    
+    let coreMLModel = mask_model()
     
     var recView: UIView = {
         let recView = UIView()
@@ -30,6 +33,14 @@ class VideoViewController: UIViewController {
         let imageView = UIImageView()
         imageView.backgroundColor = .red
         return imageView
+    }()
+    
+    private let judgeLabel: UILabel = {
+        let label = UILabel()
+        label.text = "---"
+        label.textAlignment = .center
+        label.backgroundColor = .white
+        return label
     }()
     
     var imageBuffer: CVPixelBuffer? = nil
@@ -49,7 +60,7 @@ class VideoViewController: UIViewController {
     
     private func setupCamera() {
         
-        let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: .back)
+        let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: .front)
         if let device = deviceDiscoverySession.devices.first {
             
             if let deviceInput = try? AVCaptureDeviceInput(device: device) {
@@ -57,7 +68,6 @@ class VideoViewController: UIViewController {
                 if captureSession.canAddInput(deviceInput) {
                     
                     captureSession.addInput(deviceInput)
-                    
                     setupPreview()
                 }
             }
@@ -80,10 +90,10 @@ class VideoViewController: UIViewController {
     }
 }
 
-extension VideoViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
+extension MaskVideoViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-
+        
         imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
         
         let faceDetectionRequest = VNDetectFaceLandmarksRequest(completionHandler: { (request: VNRequest, error: Error?) in
@@ -109,17 +119,14 @@ extension VideoViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     private func handleFaceDetectionObservations(observations: [VNFaceObservation]) {
         
         for observation in observations {
-//            print(observation)
             //一番重要
             let faceRectConverted = self.previewLayer.layerRectConverted(fromMetadataOutputRect: observation.boundingBox)
-            
-//            print(faceRectConverted)
             let faceRectanglePath = CGPath(rect: faceRectConverted, transform: nil)
             
             let faceLayer = CAShapeLayer()
             faceLayer.path = faceRectanglePath
             faceLayer.fillColor = UIColor.clear.cgColor
-            faceLayer.strokeColor = UIColor.yellow.cgColor
+            faceLayer.strokeColor = UIColor.green.cgColor
             
             self.faceLayers.append(faceLayer)
             self.view.layer.addSublayer(faceLayer)
@@ -143,21 +150,95 @@ extension VideoViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
             
             let ciImage = CIImage(cvPixelBuffer: imageBuffer!)
             uiImage = UIImage(ciImage: ciImage)
-
+            
             let img = uiImage.cropping(
                 to: CGRect(x: img_x * widthScale, y: img_y * heightScale,
                            width: img_width * widthScale, height: img_height * heightScale))
-////
-            self.imageView.image = img
-//
-            self.view.addSubview(self.imageView)
-            self.imageView.snp.makeConstraints { make in
-
-                make.size.equalTo(150)
-                make.centerX.equalToSuperview()
-                make.top.equalTo(self.view.snp.top).offset(50)
+            
+            guard let img = img else { return }
+            
+            guard let buffer = img.getCVPixelBuffer(size: CGSize(width: 25, height: 25)) else {
+                return
+            }
+            
+            DispatchQueue.global(qos: .userInteractive).async {
+                
+                guard let output = try? self.coreMLModel.prediction(conv2d_27_input: buffer) else {
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    
+                    let didLabel = output.classLabel
+                    
+                    self.view.addSubview(self.judgeLabel)
+                    self.judgeLabel.snp.makeConstraints { make in
+                        
+                        make.size.equalTo(150)
+                        make.centerX.equalToSuperview()
+                        make.top.equalTo(self.view.snp.top).offset(50)
+                    }
+                    
+                    self.judgeLabel.text = didLabel
+                }
             }
         }
     }
 }
 
+extension UIImage {
+    
+    func getCVPixelBuffer(size: CGSize) -> CVPixelBuffer? {
+        
+        var pixelBuffer: CVPixelBuffer?
+        let rgbColorSpace = CGColorSpaceCreateDeviceRGB()
+        let imageRect = CGRect(origin: CGPoint(x: 0, y: 0), size: size)
+        
+        let options = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue,
+               kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue] as CFDictionary
+        
+        UIGraphicsBeginImageContextWithOptions(size, true, 1.0)
+        self.draw(in: imageRect)
+        guard let newImage = UIGraphicsGetImageFromCurrentImageContext() else {
+            return nil
+        }
+        UIGraphicsEndImageContext()
+        
+        let status = CVPixelBufferCreate(
+            kCFAllocatorDefault,
+            Int(newImage.size.width),
+            Int(newImage.size.height),
+            kCVPixelFormatType_32ARGB,
+            options,
+            &pixelBuffer)
+        
+        guard status == kCVReturnSuccess, let uwPixelBuffer = pixelBuffer else {
+            return nil
+        }
+        
+        CVPixelBufferLockBaseAddress(uwPixelBuffer, CVPixelBufferLockFlags(rawValue: 0))
+        let pixelData = CVPixelBufferGetBaseAddress(uwPixelBuffer)
+        let context = CGContext(
+            data: pixelData,
+            width: Int(newImage.size.width),
+            height: Int(newImage.size.height),
+            bitsPerComponent: 8,
+            bytesPerRow: CVPixelBufferGetBytesPerRow(uwPixelBuffer),
+            space: rgbColorSpace,
+            bitmapInfo: CGImageAlphaInfo.noneSkipFirst.rawValue)
+        
+        guard let uwContext = context else {
+            return nil
+        }
+        
+        uwContext.translateBy(x: 0, y: newImage.size.height)
+        uwContext.scaleBy(x: 1.0, y: -1.0)
+        
+        UIGraphicsPushContext(uwContext)
+        newImage.draw(in: CGRect(x: 0, y: 0, width: newImage.size.width, height: newImage.size.height))
+        UIGraphicsPopContext()
+        
+        CVPixelBufferUnlockBaseAddress(uwPixelBuffer, CVPixelBufferLockFlags(rawValue: 0))
+        return pixelBuffer
+    }
+}
