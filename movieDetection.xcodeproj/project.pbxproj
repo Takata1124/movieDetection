@@ -25,7 +25,6 @@
 		68C67B5727B5331B0004FCA2 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67B5627B5331B0004FCA2 /* Extensions.swift */; };
 		68C67B5A27B540C90004FCA2 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 68C67B5927B540C90004FCA2 /* SnapKit */; };
 		68DCA04827CDD8B900B69D85 /* jupyter_script in Resources */ = {isa = PBXBuildFile; fileRef = 68DCA04527CDD8B900B69D85 /* jupyter_script */; };
-		68DCA04927CDD8B900B69D85 /* delete_file in Resources */ = {isa = PBXBuildFile; fileRef = 68DCA04627CDD8B900B69D85 /* delete_file */; };
 		68DCA04A27CDD8B900B69D85 /* google_colab in Resources */ = {isa = PBXBuildFile; fileRef = 68DCA04727CDD8B900B69D85 /* google_colab */; };
 /* End PBXBuildFile section */
 
@@ -44,7 +43,6 @@
 		68A95D61277C366300F3E4F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68C67B5627B5331B0004FCA2 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		68DCA04527CDD8B900B69D85 /* jupyter_script */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = jupyter_script; path = Python_file/jupyter_script; sourceTree = SOURCE_ROOT; };
-		68DCA04627CDD8B900B69D85 /* delete_file */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = delete_file; path = Python_file/delete_file; sourceTree = SOURCE_ROOT; };
 		68DCA04727CDD8B900B69D85 /* google_colab */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = google_colab; path = Python_file/google_colab; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -112,7 +110,6 @@
 		68DCA04427CDD88E00B69D85 /* python_file */ = {
 			isa = PBXGroup;
 			children = (
-				68DCA04627CDD8B900B69D85 /* delete_file */,
 				68DCA04727CDD8B900B69D85 /* google_colab */,
 				68DCA04527CDD8B900B69D85 /* jupyter_script */,
 			);
@@ -192,7 +189,6 @@
 				68A95D60277C366300F3E4F1 /* LaunchScreen.storyboard in Resources */,
 				68DCA04A27CDD8B900B69D85 /* google_colab in Resources */,
 				68DCA04827CDD8B900B69D85 /* jupyter_script in Resources */,
-				68DCA04927CDD8B900B69D85 /* delete_file in Resources */,
 				68A95D5D277C366300F3E4F1 /* Assets.xcassets in Resources */,
 				68A95D5B277C366200F3E4F1 /* Main.storyboard in Resources */,
 			);
