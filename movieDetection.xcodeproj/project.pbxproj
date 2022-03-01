@@ -82,14 +82,12 @@
 		68A95D52277C366200F3E4F1 /* movieDetection */ = {
 			isa = PBXGroup;
 			children = (
+				68DE548B27CDDDAC004D7EB9 /* ViewController */,
+				68DE548A27CDDD98004D7EB9 /* Extensions */,
 				68DCA04427CDD88E00B69D85 /* python_file */,
 				68DCA04327CDD87D00B69D85 /* MLModel */,
 				68A95D53277C366200F3E4F1 /* AppDelegate.swift */,
-				68C67B5627B5331B0004FCA2 /* Extensions.swift */,
 				68A95D55277C366200F3E4F1 /* SceneDelegate.swift */,
-				68A89D7027BF36B600ACA24B /* ProfileFaceViewController.swift */,
-				6856A1D527B8ED670033E6B0 /* MaskVideoViewController.swift */,
-				6856A1E127BC2AD10033E6B0 /* EmotionViewController.swift */,
 				68A95D59277C366200F3E4F1 /* Main.storyboard */,
 				68A95D5C277C366300F3E4F1 /* Assets.xcassets */,
 				68A95D5E277C366300F3E4F1 /* LaunchScreen.storyboard */,
@@ -114,6 +112,24 @@
 				68DCA04527CDD8B900B69D85 /* jupyter_script */,
 			);
 			path = python_file;
+			sourceTree = "<group>";
+		};
+		68DE548A27CDDD98004D7EB9 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				68C67B5627B5331B0004FCA2 /* Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		68DE548B27CDDDAC004D7EB9 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				68A89D7027BF36B600ACA24B /* ProfileFaceViewController.swift */,
+				6856A1D527B8ED670033E6B0 /* MaskVideoViewController.swift */,
+				6856A1E127BC2AD10033E6B0 /* EmotionViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
