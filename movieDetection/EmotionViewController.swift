@@ -18,9 +18,11 @@ class EmotionViewController: UIViewController {
     private let videoDataOutput = AVCaptureVideoDataOutput()
     private var faceLayers: [CAShapeLayer] = []
     
+    let emotionMLModel = emotion_model()
     
-    
-    let emotionMLModel = emotion_64_model()
+    var neutral_count: Int = 0
+    var happy_count: Int = 0
+    var surprise_count: Int = 0
     
     var recView: UIView = {
         let recView = UIView()
@@ -98,6 +100,7 @@ extension EmotionViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
         
         let faceDetectionRequest = VNDetectFaceLandmarksRequest(completionHandler: { (request: VNRequest, error: Error?) in
+            
             DispatchQueue.main.async {
                 //レイヤーの削除
                 self.faceLayers.forEach({ drawing in drawing.removeFromSuperlayer() })
@@ -132,12 +135,13 @@ extension EmotionViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
             self.faceLayers.append(faceLayer)
             self.view.layer.addSublayer(faceLayer)
             
+            //画像の切り取りと表示
             let videoRect = previewLayer.layerRectConverted(
                 fromMetadataOutputRect: CGRect(x: observation.boundingBox.minX,
                                                y: observation.boundingBox.minY,
                                                width: observation.boundingBox.width,
                                                height: observation.boundingBox.height))
-
+            
             
             let pixcelWidth = CGFloat(CVPixelBufferGetWidth(imageBuffer!))
             let pixcelHeight =  CGFloat(CVPixelBufferGetHeight(imageBuffer!))
@@ -155,25 +159,28 @@ extension EmotionViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
             let uiImage: UIImage = UIImage(ciImage: ciImage)
             
             var img = uiImage.cropping(
-                to: CGRect(x: (previewLayer.frame.width - img_x) * widthScale - img_width * widthScale, y: img_y * heightScale - img_height / 4,
-                           width: img_width * widthScale * 1, height: img_height * heightScale * 1.2))
+                to: CGRect(x: (previewLayer.frame.width - img_x) * widthScale - img_width * widthScale,
+                           y: img_y * heightScale ,
+                           width: img_width * widthScale * 1,
+                           height: img_height * heightScale * 1))
             
-            img = img?.flipHorizontal()
-            
+//            img = img?.flipHorizontal()
+
             guard let img = img else { return }
+//
+//            self.view.addSubview(self.imageView)
+//
+//            imageView.image = img
+//
+//            self.imageView.snp.makeConstraints { make in
+//
+//                make.size.equalTo(150)
+//                make.centerX.equalToSuperview()
+//                make.bottom.equalTo(self.view.snp.bottom).offset(-50)
+//            }
             
-            self.view.addSubview(self.imageView)
-            
-            imageView.image = img
-            
-            self.imageView.snp.makeConstraints { make in
-                
-                make.size.equalTo(150)
-                make.centerX.equalToSuperview()
-                make.bottom.equalTo(self.view.snp.bottom).offset(-50)
-            }
-            
-            let imagesize: Int = 64
+//            let imagesize: Int = 64
+            let imagesize: Int = 28
             
             guard let buffer = img.pixelBufferGray(width: imagesize, height: imagesize) else {
                 return
@@ -187,11 +194,35 @@ extension EmotionViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
                 
                 DispatchQueue.main.async {
                     
-                    let didLabel = output.classLabel
-                    //                    print(output)
-                    //                    print(didLabel)
-                    //                    print(output.Identity)
-
+                    var didLabel = output.classLabel
+                    
+                    switch didLabel {
+                        
+                    case "sad" :
+                        didLabel = "---"
+                        
+                    case "happy" :
+                        self.happy_count += 1
+                        print("happy", self.happy_count)
+                        
+                    case "fear" :
+                        didLabel = "happy"
+                        self.happy_count += 1
+                        print("happy", self.happy_count)
+   
+                    case "surprise" :
+                        
+                        self.surprise_count += 1
+                        print("surprise", self.surprise_count)
+                        
+                    case "neutral" :
+                        self.neutral_count += 1
+                        print("neutral", self.neutral_count)
+                        
+                    default:
+                        didLabel = "---"
+                    }
+                    
                     self.view.addSubview(self.judgeLabel)
                     self.judgeLabel.snp.makeConstraints { make in
                         
@@ -204,61 +235,5 @@ extension EmotionViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
                 }
             }
         }
-    }
-}
-
-extension UIImage {
-    
-    func pixelBufferGray(width: Int, height: Int) -> CVPixelBuffer? {
-        
-        var pixelBuffer : CVPixelBuffer?
-        let attributes = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue, kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue]
-        
-        let status = CVPixelBufferCreate(
-            kCFAllocatorDefault,
-            Int(width),
-            Int(height),
-            kCVPixelFormatType_OneComponent8,
-            attributes as CFDictionary,
-            &pixelBuffer)
-        
-        guard status == kCVReturnSuccess, let imageBuffer = pixelBuffer else {
-            return nil
-        }
-        
-        CVPixelBufferLockBaseAddress(imageBuffer, CVPixelBufferLockFlags(rawValue: 0))
-        
-        let imageData =  CVPixelBufferGetBaseAddress(imageBuffer)
-        
-        guard let context = CGContext(data: imageData, width: Int(width), height:Int(height),
-                                      bitsPerComponent: 8, bytesPerRow: CVPixelBufferGetBytesPerRow(imageBuffer),
-                                      space: CGColorSpaceCreateDeviceGray(),
-                                      bitmapInfo: CGImageAlphaInfo.none.rawValue) else {
-            return nil
-        }
-        
-        context.translateBy(x: 0, y: CGFloat(height))
-        context.scaleBy(x: 1.0, y: -1.0)
-        
-        UIGraphicsPushContext(context)
-        self.draw(in: CGRect(x:0, y:0, width: width, height: height))
-        UIGraphicsPopContext()
-        CVPixelBufferUnlockBaseAddress(imageBuffer, CVPixelBufferLockFlags(rawValue: 0))
-        
-        return imageBuffer
-        
-    }
-    
-    func flipHorizontal() -> UIImage {
-        
-        UIGraphicsBeginImageContextWithOptions(size, false, scale)
-        let imageRef = self.cgImage
-        let context = UIGraphicsGetCurrentContext()
-        context?.translateBy(x: size.width, y:  size.height)
-        context?.scaleBy(x: -1.0, y: -1.0)
-        context?.draw(imageRef!, in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-        let flipHorizontalImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return flipHorizontalImage!
     }
 }

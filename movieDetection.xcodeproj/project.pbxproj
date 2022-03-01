@@ -16,7 +16,7 @@
 		6856A1E027BB5E900033E6B0 /* mask_model.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 6856A1DF27BB5E900033E6B0 /* mask_model.mlmodel */; };
 		6856A1E227BC2AD10033E6B0 /* EmotionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6856A1E127BC2AD10033E6B0 /* EmotionViewController.swift */; };
 		6856A1E427BC8BD70033E6B0 /* emotion_model.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 6856A1E327BC8BD70033E6B0 /* emotion_model.mlmodel */; };
-		6856A1E627BCC42C0033E6B0 /* emotion_64_model.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 6856A1E527BCC42C0033E6B0 /* emotion_64_model.mlmodel */; };
+		68A89D7127BF36B600ACA24B /* ProfileFaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A89D7027BF36B600ACA24B /* ProfileFaceViewController.swift */; };
 		68A95D54277C366200F3E4F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A95D53277C366200F3E4F1 /* AppDelegate.swift */; };
 		68A95D56277C366200F3E4F1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A95D55277C366200F3E4F1 /* SceneDelegate.swift */; };
 		68A95D5B277C366200F3E4F1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68A95D59277C366200F3E4F1 /* Main.storyboard */; };
@@ -24,14 +24,17 @@
 		68A95D60277C366300F3E4F1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68A95D5E277C366300F3E4F1 /* LaunchScreen.storyboard */; };
 		68C67B5727B5331B0004FCA2 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C67B5627B5331B0004FCA2 /* Extensions.swift */; };
 		68C67B5A27B540C90004FCA2 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 68C67B5927B540C90004FCA2 /* SnapKit */; };
+		68DCA04827CDD8B900B69D85 /* jupyter_script in Resources */ = {isa = PBXBuildFile; fileRef = 68DCA04527CDD8B900B69D85 /* jupyter_script */; };
+		68DCA04927CDD8B900B69D85 /* delete_file in Resources */ = {isa = PBXBuildFile; fileRef = 68DCA04627CDD8B900B69D85 /* delete_file */; };
+		68DCA04A27CDD8B900B69D85 /* google_colab in Resources */ = {isa = PBXBuildFile; fileRef = 68DCA04727CDD8B900B69D85 /* google_colab */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6856A1D527B8ED670033E6B0 /* MaskVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskVideoViewController.swift; sourceTree = "<group>"; };
-		6856A1DF27BB5E900033E6B0 /* mask_model.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = mask_model.mlmodel; path = Python_file/google_colab/mask_model.mlmodel; sourceTree = SOURCE_ROOT; };
+		6856A1DF27BB5E900033E6B0 /* mask_model.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = mask_model.mlmodel; path = movieDetection/MLModel/mask_model.mlmodel; sourceTree = SOURCE_ROOT; };
 		6856A1E127BC2AD10033E6B0 /* EmotionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionViewController.swift; sourceTree = "<group>"; };
-		6856A1E327BC8BD70033E6B0 /* emotion_model.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = emotion_model.mlmodel; path = Python_file/google_colab/emotion_model.mlmodel; sourceTree = SOURCE_ROOT; };
-		6856A1E527BCC42C0033E6B0 /* emotion_64_model.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = emotion_64_model.mlmodel; path = ../../../Downloads/emotion_64_model.mlmodel; sourceTree = "<group>"; };
+		6856A1E327BC8BD70033E6B0 /* emotion_model.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = emotion_model.mlmodel; path = movieDetection/MLModel/emotion_model.mlmodel; sourceTree = SOURCE_ROOT; };
+		68A89D7027BF36B600ACA24B /* ProfileFaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFaceViewController.swift; sourceTree = "<group>"; };
 		68A95D50277C366200F3E4F1 /* movieDetection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = movieDetection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68A95D53277C366200F3E4F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		68A95D55277C366200F3E4F1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -40,6 +43,9 @@
 		68A95D5F277C366300F3E4F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		68A95D61277C366300F3E4F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68C67B5627B5331B0004FCA2 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		68DCA04527CDD8B900B69D85 /* jupyter_script */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = jupyter_script; path = Python_file/jupyter_script; sourceTree = SOURCE_ROOT; };
+		68DCA04627CDD8B900B69D85 /* delete_file */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = delete_file; path = Python_file/delete_file; sourceTree = SOURCE_ROOT; };
+		68DCA04727CDD8B900B69D85 /* google_colab */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = google_colab; path = Python_file/google_colab; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,20 +84,39 @@
 		68A95D52277C366200F3E4F1 /* movieDetection */ = {
 			isa = PBXGroup;
 			children = (
+				68DCA04427CDD88E00B69D85 /* python_file */,
+				68DCA04327CDD87D00B69D85 /* MLModel */,
 				68A95D53277C366200F3E4F1 /* AppDelegate.swift */,
 				68C67B5627B5331B0004FCA2 /* Extensions.swift */,
 				68A95D55277C366200F3E4F1 /* SceneDelegate.swift */,
+				68A89D7027BF36B600ACA24B /* ProfileFaceViewController.swift */,
 				6856A1D527B8ED670033E6B0 /* MaskVideoViewController.swift */,
 				6856A1E127BC2AD10033E6B0 /* EmotionViewController.swift */,
-				6856A1DF27BB5E900033E6B0 /* mask_model.mlmodel */,
-				6856A1E327BC8BD70033E6B0 /* emotion_model.mlmodel */,
-				6856A1E527BCC42C0033E6B0 /* emotion_64_model.mlmodel */,
 				68A95D59277C366200F3E4F1 /* Main.storyboard */,
 				68A95D5C277C366300F3E4F1 /* Assets.xcassets */,
 				68A95D5E277C366300F3E4F1 /* LaunchScreen.storyboard */,
 				68A95D61277C366300F3E4F1 /* Info.plist */,
 			);
 			path = movieDetection;
+			sourceTree = "<group>";
+		};
+		68DCA04327CDD87D00B69D85 /* MLModel */ = {
+			isa = PBXGroup;
+			children = (
+				6856A1DF27BB5E900033E6B0 /* mask_model.mlmodel */,
+				6856A1E327BC8BD70033E6B0 /* emotion_model.mlmodel */,
+			);
+			path = MLModel;
+			sourceTree = "<group>";
+		};
+		68DCA04427CDD88E00B69D85 /* python_file */ = {
+			isa = PBXGroup;
+			children = (
+				68DCA04627CDD8B900B69D85 /* delete_file */,
+				68DCA04727CDD8B900B69D85 /* google_colab */,
+				68DCA04527CDD8B900B69D85 /* jupyter_script */,
+			);
+			path = python_file;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,6 +190,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				68A95D60277C366300F3E4F1 /* LaunchScreen.storyboard in Resources */,
+				68DCA04A27CDD8B900B69D85 /* google_colab in Resources */,
+				68DCA04827CDD8B900B69D85 /* jupyter_script in Resources */,
+				68DCA04927CDD8B900B69D85 /* delete_file in Resources */,
 				68A95D5D277C366300F3E4F1 /* Assets.xcassets in Resources */,
 				68A95D5B277C366200F3E4F1 /* Main.storyboard in Resources */,
 			);
@@ -181,9 +209,9 @@
 				6856A1D627B8ED670033E6B0 /* MaskVideoViewController.swift in Sources */,
 				68A95D54277C366200F3E4F1 /* AppDelegate.swift in Sources */,
 				6856A1E427BC8BD70033E6B0 /* emotion_model.mlmodel in Sources */,
-				6856A1E627BCC42C0033E6B0 /* emotion_64_model.mlmodel in Sources */,
 				6856A1E027BB5E900033E6B0 /* mask_model.mlmodel in Sources */,
 				68A95D56277C366200F3E4F1 /* SceneDelegate.swift in Sources */,
+				68A89D7127BF36B600ACA24B /* ProfileFaceViewController.swift in Sources */,
 				68C67B5727B5331B0004FCA2 /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
